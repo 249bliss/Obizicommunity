@@ -57,7 +57,8 @@ const toggleMenu = (forceClose = false) => {
 hamburger.addEventListener('click', () => toggleMenu());
 navOverlay.addEventListener('click', () => toggleMenu(true));
 
-navLinks.querySelectorAll('a').forEach(a => {
+navLinks.querySelectorAll('a').forEach((a, i) => {
+  a.style.setProperty('--item-index', i + 1);
   a.addEventListener('click', () => toggleMenu(true));
 });
 

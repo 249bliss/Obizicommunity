@@ -23,7 +23,6 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 
-# Large media (optional, already checked they are under 100MB)
-# assets/Videos/
-
-assets/Videos/
+# Media: Allow videos but ignore the 80MB one to keep pushes fast
+!assets/Videos/
+assets/Videos/Hero Video.mp4

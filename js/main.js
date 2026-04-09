@@ -29,8 +29,9 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ─── Mobile hamburger menu & Drawer ─── */
-const hamburger = document.getElementById('hamburger');
-const navLinks  = document.getElementById('navLinks');
+const hamburger   = document.getElementById('hamburger');
+const drawer      = document.getElementById('mobileDrawer');
+const drawerClose = document.getElementById('drawerClose');
 
 // Create overlay if not present
 let navOverlay = document.querySelector('.nav-overlay');
@@ -41,9 +42,9 @@ if (!navOverlay) {
 }
 
 const toggleMenu = (forceClose = false) => {
-  const isOpen = forceClose ? false : !navLinks.classList.contains('open');
+  const isOpen = forceClose ? false : !drawer.classList.contains('open');
   
-  navLinks.classList.toggle('open', isOpen);
+  drawer.classList.toggle('open', isOpen);
   navOverlay.classList.toggle('active', isOpen);
   
   const spans = hamburger.querySelectorAll('span');
@@ -55,9 +56,11 @@ const toggleMenu = (forceClose = false) => {
 };
 
 hamburger.addEventListener('click', () => toggleMenu());
+if (drawerClose) drawerClose.addEventListener('click', () => toggleMenu(true));
 navOverlay.addEventListener('click', () => toggleMenu(true));
 
-navLinks.querySelectorAll('a').forEach((a, i) => {
+// Setup drawer links staggered animations items
+drawer.querySelectorAll('.drawer-links a').forEach((a, i) => {
   a.style.setProperty('--item-index', i + 1);
   a.addEventListener('click', () => toggleMenu(true));
 });

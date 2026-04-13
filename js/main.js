@@ -290,6 +290,154 @@ if (spiritSection) {
   });
 }
 
+/* ─── Gallery Lightbox Logic ─── */
+const galleryModal = document.getElementById('galleryModal');
+const modalContent = document.getElementById('modalContent');
+const modalBack    = document.getElementById('modalBack');
+const modalPrev    = document.getElementById('modalPrev');
+const modalNext    = document.getElementById('modalNext');
+const modalDownload = document.getElementById('modalDownload');
+const modalCaption = document.getElementById('modalCaption');
+const modalType    = document.getElementById('modalType');
+const modalPlayOverlay = document.getElementById('modalPlayOverlay');
+const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+
+let currentGalleryIndex = 0;
+
+// Robust download function to force "Save As" behavior
+async function forceDownload(url, type) {
+  const extension = type === 'Video' ? 'mp4' : 'jpg';
+  const filename = `Ekenobizi-Community-${type}.${extension}`;
+  
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.href = blobUrl;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    
+    // Cleanup
+    setTimeout(() => {
+      document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl);
+    }, 100);
+  } catch (error) {
+    console.error('Download failed:', error);
+    // Fallback if fetch fails
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.click();
+  }
+}
+
+function openGalleryModal(index) {
+  currentGalleryIndex = index;
+  const item = galleryItems[index];
+  const video = item.querySelector('video');
+  const img = item.querySelector('img');
+  const caption = item.querySelector('.gallery-type').textContent;
+  
+  modalContent.innerHTML = '';
+  modalPlayOverlay.classList.add('hidden');
+  
+  if (video) {
+    const videoSrc = video.querySelector('source').getAttribute('src');
+    const modalVideo = document.createElement('video');
+    modalVideo.src = videoSrc;
+    modalVideo.controls = true;
+    modalVideo.autoplay = true;
+    modalVideo.loop = true;
+    modalVideo.playsInline = true;
+    
+    // Play/Pause sync with custom overlay
+    modalVideo.addEventListener('play',  () => modalPlayOverlay.classList.add('hidden'));
+    modalVideo.addEventListener('pause', () => modalPlayOverlay.classList.remove('hidden'));
+    
+    modalContent.appendChild(modalVideo);
+    modalType.textContent = 'Video';
+    modalDownload.dataset.url = videoSrc;
+    modalDownload.dataset.type = 'Video';
+    modalPlayOverlay.style.display = 'flex';
+  } else if (img) {
+    const imgSrc = img.getAttribute('src');
+    const modalImg = document.createElement('img');
+    modalImg.src = imgSrc;
+    modalContent.appendChild(modalImg);
+    modalType.textContent = 'Image';
+    modalDownload.dataset.url = imgSrc;
+    modalDownload.dataset.type = 'Image';
+    modalPlayOverlay.style.display = 'none';
+  }
+  
+  modalCaption.textContent = caption;
+  galleryModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeGalleryModal() {
+  galleryModal.classList.remove('active');
+  document.body.style.overflow = '';
+  const activeVideo = modalContent.querySelector('video');
+  if (activeVideo) {
+    activeVideo.pause();
+    activeVideo.src = '';
+    activeVideo.load();
+    activeVideo.remove();
+  }
+}
+
+function togglePlayPause() {
+  const video = modalContent.querySelector('video');
+  if (video) {
+    if (video.paused) video.play();
+    else video.pause();
+  }
+}
+
+function navigateGallery(step) {
+  let newIndex = currentGalleryIndex + step;
+  if (newIndex < 0) newIndex = galleryItems.length - 1;
+  if (newIndex >= galleryItems.length) newIndex = 0;
+  openGalleryModal(newIndex);
+}
+
+galleryItems.forEach((item, index) => {
+  item.style.cursor = 'pointer';
+  item.addEventListener('click', () => openGalleryModal(index));
+});
+
+if (modalBack) modalBack.addEventListener('click', closeGalleryModal);
+if (modalPlayOverlay) modalPlayOverlay.addEventListener('click', togglePlayPause);
+
+// Download button click handler
+if (modalDownload) {
+  modalDownload.addEventListener('click', (e) => {
+    e.preventDefault();
+    const url = modalDownload.dataset.url;
+    const type = modalDownload.dataset.type;
+    forceDownload(url, type);
+  });
+}
+
+const modalOverlay = galleryModal ? galleryModal.querySelector('.modal-overlay') : null;
+if (modalOverlay) modalOverlay.addEventListener('click', closeGalleryModal);
+
+if (modalPrev) modalPrev.addEventListener('click', (e) => { e.stopPropagation(); navigateGallery(-1); });
+if (modalNext) modalNext.addEventListener('click', (e) => { e.stopPropagation(); navigateGallery(1); });
+
+window.addEventListener('keydown', (e) => {
+  if (!galleryModal || !galleryModal.classList.contains('active')) return;
+  if (e.key === 'Escape') closeGalleryModal();
+  if (e.key === 'ArrowLeft') navigateGallery(-1);
+  if (e.key === 'ArrowRight') navigateGallery(1);
+  if (e.key === ' ') { e.preventDefault(); togglePlayPause(); }
+});
+
 /* ─── Resize ScrollTrigger on window resize ─── */
 window.addEventListener('resize', () => {
   ScrollTrigger.refresh();

@@ -355,19 +355,10 @@
       </div>
       
       <div class="gallery-grid">
-        <!-- Image Item -->
+        <!-- Video Item 1 -->
         <div class="gallery-item reveal-card" style="--delay: 0s">
-          <img src="assets/images/Traditionsl fOOD.jfif" alt="Traditional Ekenobizi Food" class="gallery-img" />
-          <div class="gallery-overlay">
-            <span class="gallery-icon"><i class="fa-solid fa-utensils"></i></span>
-            <span class="gallery-type">Traditional Cuisine</span>
-          </div>
-        </div>
-        
-        <!-- Video Item (Simulated) -->
-        <div class="gallery-item reveal-card" style="--delay: 0.1s">
           <video autoplay muted loop playsinline class="gallery-img">
-            <source src="assets/Videos/cULTURAL DANCE VIDEO .mp4" type="video/mp4">
+            <source src="assets/Main content/VID-20260413-WA0016.mp4" type="video/mp4">
           </video>
           <div class="gallery-overlay">
             <span class="gallery-icon"><i class="fa-solid fa-circle-play"></i></span>
@@ -375,37 +366,43 @@
           </div>
         </div>
         
-        <div class="gallery-item reveal-card" style="--delay: 0.2s">
+        <!-- Video Item 2 -->
+        <div class="gallery-item reveal-card" style="--delay: 0.1s">
           <video autoplay muted loop playsinline class="gallery-img">
-            <source src="assets/Videos/Heritage.mp4" type="video/mp4">
+            <source src="assets/Main content/VID-20260413-WA0017.mp4" type="video/mp4">
           </video>
           <div class="gallery-overlay">
             <span class="gallery-icon"><i class="fa-solid fa-circle-play"></i></span>
-            <span class="gallery-type">Ancestral Heritage</span>
+            <span class="gallery-type">Community Highlights</span>
           </div>
         </div>
         
+        <!-- Video Item 3 -->
+        <div class="gallery-item reveal-card" style="--delay: 0.2s">
+          <video autoplay muted loop playsinline class="gallery-img">
+            <source src="assets/Main content/VID-20260413-WA0018.mp4" type="video/mp4">
+          </video>
+          <div class="gallery-overlay">
+            <span class="gallery-icon"><i class="fa-solid fa-circle-play"></i></span>
+            <span class="gallery-type">Heritage Moments</span>
+          </div>
+        </div>
+        
+        <!-- Image Item 1 -->
         <div class="gallery-item reveal-card" style="--delay: 0.3s">
-          <img src="assets/images/TECH for gallery.jfif" alt="Ekenobizi Digital Innovation" class="gallery-img" />
+          <img src="assets/Main content/IMG-20260413-WA0014.jpg" alt="Ekenobizi Community Landmark" class="gallery-img" />
           <div class="gallery-overlay">
-            <span class="gallery-icon"><i class="fa-solid fa-laptop-code"></i></span>
-            <span class="gallery-type">Digital Innovation</span>
+            <span class="gallery-icon"><i class="fa-solid fa-camera"></i></span>
+            <span class="gallery-type">Community Landmark</span>
           </div>
         </div>
         
+        <!-- Image Item 2 -->
         <div class="gallery-item reveal-card" style="--delay: 0.4s">
-          <img src="assets/images/Yoouth%20empower.jpeg" alt="Youth Development in Ekenobizi" class="gallery-img" />
+          <img src="assets/Main content/IMG-20260413-WA0015.jpg" alt="Cultural Display in Ekenobizi" class="gallery-img" />
           <div class="gallery-overlay">
-            <span class="gallery-icon"><i class="fa-solid fa-seedling"></i></span>
-            <span class="gallery-type">Youth Development</span>
-          </div>
-        </div>
-        
-        <div class="gallery-item reveal-card" style="--delay: 0.5s">
-          <img src="assets/images/Bui9ldign.jfif" alt="Ekenobizi Architecture" class="gallery-img" />
-          <div class="gallery-overlay">
-            <span class="gallery-icon"><i class="fa-solid fa-hotel"></i></span>
-            <span class="gallery-type">Modern Landmarks</span>
+            <span class="gallery-icon"><i class="fa-solid fa-mask"></i></span>
+            <span class="gallery-type">Cultural Display</span>
           </div>
         </div>
       </div>
@@ -504,6 +501,47 @@
     </ul>
     <div class="drawer-footer">
       <a href="#cta" class="btn btn-gold">Join Us</a>
+    </div>
+  </div>
+
+  <!-- ======= GALLERY MODAL (LIGHTBOX) ======= -->
+  <div id="galleryModal" class="gallery-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+      <!-- Back Navigation Button -->
+      <button class="modal-back" id="modalBack" aria-label="Back to gallery">
+        <i class="fa-solid fa-arrow-left"></i> <span>Back to Gallery</span>
+      </button>
+
+      <div class="modal-media-wrap">
+        <div id="modalContent" class="modal-content">
+          <!-- JS will inject <img> or <video> here -->
+        </div>
+        <!-- Custom Play Overlay -->
+        <div id="modalPlayOverlay" class="modal-play-overlay">
+          <i class="fa-solid fa-play"></i>
+        </div>
+      </div>
+
+      <div class="modal-info">
+        <div class="modal-info-text">
+          <span id="modalType" class="modal-type">Video</span>
+          <h4 id="modalCaption">Gallery Media</h4>
+        </div>
+        <div class="modal-actions">
+          <a id="modalDownload" href="#" download class="btn btn-gold btn-sm">
+            <i class="fa-solid fa-download"></i> Download
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button class="modal-nav prev" id="modalPrev" aria-label="Previous media">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button class="modal-nav next" id="modalNext" aria-label="Next media">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
     </div>
   </div>
 

@@ -349,10 +349,13 @@ function openGalleryModal(index) {
     const videoSrc = video.querySelector('source').getAttribute('src');
     const modalVideo = document.createElement('video');
     modalVideo.src = videoSrc;
+    const poster = video.getAttribute('poster');
+    if (poster) modalVideo.poster = poster;
     modalVideo.controls = true;
     modalVideo.autoplay = true;
     modalVideo.loop = true;
     modalVideo.playsInline = true;
+    modalVideo.preload = 'auto';
     
     // Play/Pause sync with custom overlay
     modalVideo.addEventListener('play',  () => modalPlayOverlay.classList.add('hidden'));

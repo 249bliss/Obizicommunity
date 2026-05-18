@@ -87,7 +87,8 @@ ul { list-style: none; }
   box-sizing: border-box;
   border-radius: 100px;
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 16px;
+  white-space: nowrap;
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
@@ -385,7 +386,8 @@ ul { list-style: none; }
   transform: translateY(30px);
 }
 .hero-actions .btn {
-  width: 210px;
+  width: 240px;
+  padding: 0 1rem;
 }
 .scroll-indicator {
   position: absolute;

@@ -24,5 +24,5 @@ yarn-error.log*
 Thumbs.db
 
 # Media: Allow videos but ignore the 80MB one to keep pushes fast
-!assets/Videos/
-assets/Videos/Hero Video.mp4
+!assets/videos/
+assets/videos/Hero Video.mp4

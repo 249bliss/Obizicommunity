@@ -134,33 +134,29 @@ ul { list-style: none; }
 /* ========================= */
 .navbar {
   position: fixed;
-  top: 1.2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 1100px;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 1000;
-  padding: 0.7rem 0;
-  background: rgba(26, 6, 45, 0.85);
-  border: 1px solid rgba(201,146,26,0.15);
-  border-radius: 100px;
+  padding: 1.2rem 0;
+  background: rgba(26, 6, 45, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-  backdrop-filter: blur(10px); /* Subtle blur that won't break visibility now that z-indices are fixed */
+  backdrop-filter: blur(15px);
 }
 .navbar.scrolled {
-  top: 0.8rem;
-  width: 85%;
-  max-width: 1000px;
-  padding: 0.5rem 0;
+  padding: 0.8rem 0;
   background: rgba(26, 6, 45, 0.98);
-  box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(201, 146, 26, 0.2);
 }
 .nav-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.5rem 0 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
   width: 100%;
 }
 .nav-brand { display: flex; align-items: center; gap: 0.8rem; flex: 0 0 auto; }
@@ -202,8 +198,8 @@ ul { list-style: none; }
 }
 .nav-links a {
   color: rgba(255,255,255,0.7);
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
   letter-spacing: 0.05em;
   position: relative;
   transition: color 0.3s;

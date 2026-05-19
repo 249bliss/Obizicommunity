@@ -304,43 +304,15 @@ const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
 
 let currentGalleryIndex = 0;
 
-// Robust download function to force "Save As" behavior
-async function forceDownload(url, type) {
-  const extension = type === 'Video' ? 'mp4' : 'jpg';
-  const filename = `Ekenobizi-Community-${type}.${extension}`;
-  
-  try {
-    const response = await fetch(url);
-    const blob = await response.blob();
-    const blobUrl = URL.createObjectURL(blob);
-    
-    const link = document.createElement('a');
-    link.href = blobUrl;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    
-    // Cleanup
-    setTimeout(() => {
-      document.body.removeChild(link);
-      URL.revokeObjectURL(blobUrl);
-    }, 100);
-  } catch (error) {
-    console.error('Download failed:', error);
-    // Fallback if fetch fails
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    link.click();
-  }
-}
+// Removed forceDownload for native <a> tag download functionality
 
 function openGalleryModal(index) {
   currentGalleryIndex = index;
   const item = galleryItems[index];
   const video = item.querySelector('video');
   const img = item.querySelector('img');
-  const caption = item.querySelector('.gallery-type').textContent;
+  const captionEl = item.querySelector('.gallery-type');
+  const caption = captionEl ? captionEl.textContent : "Community Photo";
   
   modalContent.innerHTML = '';
   modalPlayOverlay.classList.add('hidden');
@@ -363,8 +335,8 @@ function openGalleryModal(index) {
     
     modalContent.appendChild(modalVideo);
     modalType.textContent = 'Video';
-    modalDownload.dataset.url = videoSrc;
-    modalDownload.dataset.type = 'Video';
+    modalDownload.href = videoSrc;
+    modalDownload.download = 'Ekenobizi-Community-Video.mp4';
     modalPlayOverlay.style.display = 'flex';
   } else if (img) {
     const imgSrc = img.getAttribute('src');
@@ -372,8 +344,10 @@ function openGalleryModal(index) {
     modalImg.src = imgSrc;
     modalContent.appendChild(modalImg);
     modalType.textContent = 'Image';
-    modalDownload.dataset.url = imgSrc;
-    modalDownload.dataset.type = 'Image';
+    modalDownload.href = imgSrc;
+    let filename = imgSrc.split('/').pop().split('?')[0];
+    if (!filename) filename = 'Ekenobizi-Community-Image.jpg';
+    modalDownload.download = filename;
     modalPlayOverlay.style.display = 'none';
   }
   
@@ -417,15 +391,7 @@ galleryItems.forEach((item, index) => {
 if (modalBack) modalBack.addEventListener('click', closeGalleryModal);
 if (modalPlayOverlay) modalPlayOverlay.addEventListener('click', togglePlayPause);
 
-// Download button click handler
-if (modalDownload) {
-  modalDownload.addEventListener('click', (e) => {
-    e.preventDefault();
-    const url = modalDownload.dataset.url;
-    const type = modalDownload.dataset.type;
-    forceDownload(url, type);
-  });
-}
+// Native download handles click directly
 
 const modalOverlay = galleryModal ? galleryModal.querySelector('.modal-overlay') : null;
 if (modalOverlay) modalOverlay.addEventListener('click', closeGalleryModal);

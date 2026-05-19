@@ -1034,10 +1034,11 @@ ul { list-style: none; }
 }
 @media (max-width: 992px) {
   .navbar { 
-    top: 1rem; 
-    width: 92%; 
+    top: 0; 
+    width: 100%; 
     padding: 0.6rem 0;
   }
+  .nav-container { padding: 0 1rem; }
   .nav-links, .nav-cta { display: none; }
   .nav-hamburger { 
     display: flex; 
@@ -1155,7 +1156,7 @@ ul { list-style: none; }
   .featured-guardian { padding: 2rem; }
 }
 @media (max-width: 480px) {
-  .navbar { width: 95%; top: 0.75rem; }
+  .navbar { width: 100%; top: 0; }
   .container { padding: 0 1.25rem; }
   .hero h1 { font-size: 2.2rem; }
   .section-title { font-size: 1.8rem; }
@@ -1381,4 +1382,101 @@ ul { list-style: none; }
 }
 @media (max-width: 480px) {
   .modal-media-wrap { max-height: 50vh; }
+}
+
+/* =============================================
+   DEDICATED GALLERY SUBPAGE STYLES
+   ============================================= */
+
+/* --- Gallery Hero Banner --- */
+.gallery-hero {
+  position: relative;
+  padding: 11rem 0 7rem;
+  background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-royal) 100%);
+  text-align: center;
+  overflow: hidden;
+}
+.gallery-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(201, 146, 26, 0.16) 0%, transparent 60%);
+  z-index: 1;
+}
+.gallery-hero-content {
+  position: relative;
+  z-index: 2;
+}
+.gallery-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.gallery-hero-title span {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 65%, #fff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gallery-hero-subtitle {
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* --- Gallery Filters --- */
+.gallery-filters-wrapper {
+  background: var(--cream);
+  padding: 2.5rem 0 2.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.gallery-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  padding: 0;
+}
+.filter-btn {
+  background: var(--white);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: var(--text-mid);
+  padding: 0.65rem 1.7rem;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  outline: none;
+}
+.filter-btn:hover {
+  background: rgba(201, 146, 26, 0.08);
+  border-color: var(--gold-light);
+  color: var(--gold-dark);
+  transform: translateY(-2px);
+}
+.filter-btn.active {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  border-color: transparent;
+  color: var(--white);
+  box-shadow: 0 8px 25px rgba(201, 146, 26, 0.25);
+}
+
+/* --- Subpage Main Section Adjustments --- */
+.gallery-subpage-section {
+  padding: 5rem 0 8rem;
+  background: var(--white);
+}
+
+/* --- Filtering Item Animations --- */
+.gallery-item {
+  transform-origin: center center;
+  will-change: transform, opacity;
 }
